@@ -260,3 +260,42 @@
   new PureCounter();
 
 })()
+
+
+
+//LAB4
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const imageIds = ["img1", "img2", "img3"];
+  let currentIndex = 0;
+
+  function updateImage() {
+  
+    imageIds.forEach((id) => {
+      document.getElementById(id).style.display = "none";
+    });
+
+    document.getElementById(imageIds[currentIndex]).style.display = "block";
+  }
+
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
+    updateImage();
+  }
+
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % imageIds.length;
+    updateImage();
+  }
+
+
+  document.getElementById("prevButton").addEventListener("click", prevImage);
+  document.getElementById("nextButton").addEventListener("click", nextImage);
+
+
+  updateImage();
+});
