@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function submitForm() {
+            // Get values from the form
+            var name = document.getElementById("name").value;
+            var surname = document.getElementById("surname").value;
+            var dob = document.getElementById("dob").value;
+
+            // Validate date input
+            if (!isValidDate(dob)) {
+                alert("Please enter a valid date in the format YYYY-MM-DD");
+                return;
+            }
+
+            // Calculate days survived
+            var daysSurvived = calculateDaysSurvived(dob);
+
+            // Display information on the page
+            var resultElement = document.getElementById("result");
+            resultElement.innerHTML = `
+                <p>Name: ${name},</p>
+                <p>Surname: ${surname},</p>
+                <p>Date of Birth: ${dob}.</p>
+                <p>${name} ${surname} survived for ${daysSurvived} days.</p>
+            `;
+
+            // Apply font size based on days survived
+            if (daysSurvived < 1000) {
+                resultElement.style.fontSize = "10px";
+            } else if (daysSurvived < 7000) {
+                resultElement.style.fontSize = "16px";
+            } else {
+                resultElement.style.fontSize = "20px";
+            }
+            console.log("Name: " + name + ",");
+            console.log("Surname: " + surname + ",");
+            console.log("Date of Birth: " + dob + ".");
+            console.log(name + " " + surname + " survived for " + daysSurvived + " days.");
+
+        }
+
+        function isValidDate(dateString) {
+            var regex = /^\d{4}-\d{2}-\d{2}$/;
+            return regex.test(dateString);
+        }
+
+        function calculateDaysSurvived(dob) {
+            var birthDate = new Date(dob);
+            var currentDate = new Date();
+
+            var timeDifference = currentDate - birthDate;
+            var daysSurvived = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+            return daysSurvived;
+        }
+    </script>
+</head>
+<body>
+    <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" required>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="text" id="dob" placeholder="YYYY-MM-DD" required>
+
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <div id="result"></div>
+</body>
+</html>
