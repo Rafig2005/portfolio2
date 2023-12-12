@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Slider</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app" class="main-container" :class="{'grabbing': dragging}" @mousemove="mouseMoving" @mouseUp="stopDrag">
+    <div class="upper-container" :style="bgStyle"> 
+        <h2 id="temperatureMessage">{{ temperatureMessage }}</h2>   
+      <h2 class="temperature-text">{{currentTemperature | round}}</h2>
+      <div class="temperature-graduation">
+        <div class="temperature-element" v-for="el in temperatureGrades" :key="el" :style="tempElementStyle(el)">
+          <span class="temperature-element-number">{{el}}</span><br>
+          <span class="temperature-element-line">|</span>
+        </div>
+      </div>
+    </div>
+    <div class="lower-container">
+      <div class="slider-container" :style="sliderStyle">
+        <svg>
+          <path d="M74.3132 0C47.0043 2.44032e-05 50.175 30 7.9179 30H144.27C99.4571 30 101.622 -2.44032e-05 74.3132 0Z" transform="translate(-7.38794 0.5)" fill="#12132C"/>
+        </svg>
+        <div class="slider-button" :class="{'grabbing': dragging}" @mouseDown="startDrag">
+          <i class="fas fa-thermometer-empty slider-icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.2/gsap.min.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
